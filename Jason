@@ -1,0 +1,55 @@
+{
+  "buckets": [
+    {
+      "name": "Entertainment Videos",
+      "cards": [
+        {
+          "name": "Funny Cat Videos",
+          "link": "https://www.youtube.com/watch?v=abc123"
+        },
+        {
+          "name": "Movie Trailers",
+          "link": "https://www.youtube.com/watch?v=def456"
+        }
+      ]
+    },
+    {
+      "name": "Education Videos",
+      "cards": [
+        {
+          "name": "Khan Academy",
+          "link": "https://www.youtube.com/watch?v=ghi456"
+        },
+        {
+          "name": "Crash Course",
+          "link": "https://www.youtube.com/watch?v=j2t4K8gbzI4"
+        }
+      ]
+    },
+    {
+      "name": "My Custom Bucket",
+      "cards": [
+        {
+          "name": "My Favorite Song",
+          "link": "https://www.youtube.com/watch?v=jkl789"
+        },
+        {
+          "name": "Tutorial Videos",
+          "link": "https://www.youtube.com/watch?v=mno987"
+        }
+      ]
+    }
+  ],
+  "history": [
+    {
+      "name": "Funny Cat Videos",
+      "link": "https://www.youtube.com/watch?v=abc123",
+      "timePlayed": "2023-03-28 15:30:00"
+    },
+    {
+      "name": "Crash Course",
+      "link": "https://www.youtube.com/watch?v=j2t4K8gbzI4",
+      "timePlayed": "2023-03-28 16:45:00"
+    }
+  ]
+}
