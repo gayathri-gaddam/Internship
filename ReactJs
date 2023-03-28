@@ -1,0 +1,107 @@
+import React, { useState, useEffect } from "react";
+
+function App() {
+  const [data, setData] = useState({ buckets: [], history: [] });
+
+  useEffect(() => {
+    fetch("/data.json")
+      .then((response) => response.json())
+      .then((data) => setData(data));
+  }, []);
+
+  const handleDeleteCard = (bucketIndex, cardIndex) => {
+    const newData = { ...data };
+    newData.buckets[bucketIndex].cards.splice(cardIndex, 1);
+    setData(newData);
+  };
+
+  const handleDeleteBucket = (bucketIndex) => {
+    const newData = { ...data };
+    newData.buckets.splice(bucketIndex, 1);
+    setData(newData);
+  };
+
+  const handleAddBucket = (bucketName) => {
+    const newData = { ...data };
+    newData.buckets.push({ name: bucketName, cards: [] });
+    setData(newData);
+  };
+
+  const handleAddCard = (bucketIndex, cardName, cardLink) => {
+    const newData = { ...data };
+    newData.buckets[bucketIndex].cards.push({ name: cardName, link: cardLink });
+    setData(newData);
+  };
+
+  const handleMoveCard = (fromBucketIndex, toBucketIndex, cardIndex) => {
+    const newData = { ...data };
+    const card = newData.buckets[fromBucketIndex].cards[cardIndex];
+    newData.buckets[fromBucketIndex].cards.splice(cardIndex, 1);
+    newData.buckets[toBucketIndex].cards.push(card);
+    setData(newData);
+  };
+
+  const handlePlayCard = (cardName, cardLink) => {
+    const newData = { ...data };
+    newData.history.push({
+      name: cardName,
+      link: cardLink,
+      timePlayed: new Date().toLocaleString(),
+    });
+    setData(newData);
+  };
+
+  return (
+    <div>
+      <h1>Bucket List</h1>
+      <div>
+        <h2>Add a Bucket</h2>
+        <AddBucketForm onAddBucket={handleAddBucket} />
+      </div>
+      <ul>
+        {data.buckets.map((bucket, bucketIndex) => (
+          <li key={bucketIndex}>
+            <h2>{bucket.name}</h2>
+            <div>
+              <h3>Add a Card</h3>
+              <AddCardForm
+                onAddCard={(cardName, cardLink) =>
+                  handleAddCard(bucketIndex, cardName, cardLink)
+                }
+              />
+            </div>
+            <ul>
+              {bucket.cards.map((card, cardIndex) => (
+                <li key={cardIndex}>
+                  <div>
+                    <h4>{card.name}</h4>
+                    <div>
+                      <button
+                        onClick={() => handleDeleteCard(bucketIndex, cardIndex)}
+                      >
+                        Delete Card
+                      </button>
+                      <button onClick={() => handleMoveCard(bucketIndex, bucketIndex - 1, cardIndex)}>
+                        Move Card Up
+                      </button>
+                      <button onClick={() => handleMoveCard(bucketIndex, bucketIndex + 1, cardIndex)}>
+                        Move Card Down
+                      </button>
+                    </div>
+                    <div>
+                      <button onClick={() => handlePlayCard(card.name, card.link)}>
+                        Play Card
+                      </button>
+                    </div>
+                  </div>
+                </li>
+              ))}
+            </ul>
+            <div>
+              <button onClick={() => handleDeleteBucket(bucketIndex)}>Delete Bucket</button>
+            </div>
+          </li>
+        ))}
+      </ul>
+      <div>
+        <
